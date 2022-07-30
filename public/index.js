@@ -30,7 +30,8 @@ async function sendMessage(payload) {
 
 async function init() {
     const peer = createPeer();
-    peer.addTransceiver("video", { direction: "recvonly" })
+    peer.addTransceiver("audio", { direction: "recvonly" });
+    peer.addTransceiver("video", { direction: "recvonly" });
 }
 
 function createPeer() {
