@@ -32,13 +32,9 @@
     const historyLength = localStorage.getItem('historyLength') || 0;
     const { data } = await axios.get('/info');
 
-    if (!data.started) {
-      
-    }
-
     if (first || consumersLength != data.consumers.length) {
       data.consumers.forEach(consumer => {
-        list += `<li class="list-group-item">${consumer.name} <span class="badge badge-sm badge-secondary">${moment(consumer.time).fromNow()}</span></li>`;
+        list += `<li class="list-group-item"><span class="badge badge-sm badge-secondary">${moment(consumer.time).fromNow()}</span><br />${consumer.name}</li>`;
       });
       document.getElementById('consumers').innerHTML = `<ul class="list-group">${list}</ul>`;
       document.getElementById('guestCount').innerHTML = `[${data.consumers.length}]`;

@@ -3,6 +3,8 @@ window.onload = () => {
         init();
         document.getElementById('start').style.display = 'none';
         document.getElementById('video').style.display = 'block';
+        document.getElementById('chat-wrapper').style.opacity = '0.65';
+        document.getElementById('guest-wrapper').style.opacity = '0.65';
     }
 
     document.getElementById('sendMessage').onclick = () => {
@@ -15,7 +17,6 @@ window.onload = () => {
 async function sendMessage(payload) {
     const { data } = await axios.post('/chat', payload);
     console.log('sendMessage', payload, data);
-    document.getElementById('message').value = '';
 }
 
 async function init() {
