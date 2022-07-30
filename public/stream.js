@@ -55,6 +55,7 @@ async function handleNegotiationNeededEvent(peer) {
     const offer = await peer.createOffer();
     await peer.setLocalDescription(offer);
     const payload = {
+        secret: localStorage.getItem('streamSecret'),
         sdp: peer.localDescription
     };
 

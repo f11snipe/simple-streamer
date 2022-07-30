@@ -4,7 +4,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const webrtc = require("wrtc");
-const localStorage = new LocalStorage('./scratch');
+//const localStorage = new LocalStorage('./scratch');
+const localStorage = new LocalStorage('./data');
+const STREAM_SECRET = 'StreamSomeShit!';
 
 const getCache = (key, val) => {
     try {
@@ -96,6 +98,9 @@ app.post("/consumer", async ({ body }, res) => {
 });
 
 app.post('/broadcast', async ({ body }, res) => {
+    if (body.secret != STREAM_SECRET) {
+        return res.json({ message: 'Nope' });
+    }
     const peer = new webrtc.RTCPeerConnection({
         iceServers: [
             {
