@@ -1,5 +1,62 @@
+body, html {
+  height: 100%;
+  width: 100%;
+  background-color: #6393b7;
+  font-family: 'Syne Mono', monospace;
+  color: #fff;
+}
+
+h1, h2, h3, h4 {
+  padding: 25px;
+  text-align: center;
+}
+
 #register {
   margin: 100px;
+}
+
+#details {
+  opacity: 0;
+}
+
+.badge {
+  cursor: pointer;
+}
+
+#consumers {
+  color: #333;
+  opacity: 0.4;
+}
+
+#showChat {
+  opacity: 0;
+}
+
+#chat-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  padding: 15px;
+  opacity: 0.65;
+  color: #333;
+}
+
+#chat {
+  padding: 15px;
+  min-height: 300px;
+  max-height: 600px;
+  min-width: 150px;
+  max-width: 300px;
+  overflow-y: scroll;
+}
+
+#chat p.message {
+  white-space: pre-wrap;
+}
+
+ul {
+  list-style: none;
 }
 
 #register input, #register button {

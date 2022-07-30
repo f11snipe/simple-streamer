@@ -1,11 +1,25 @@
 window.onload = () => {
     document.getElementById('view').onclick = () => {
         init();
-        const name = document.getElementById('name').value;
-        alert(`Welcome to the party, ${name}`);
+        // const name = document.getElementById('name').value;
+        // alert(`Welcome to the party, ${name}`);
         document.getElementById('register').style.display = 'none';
         document.getElementById('video').style.display = 'block';
-    }
+        document.getElementById('details').style.opacity = '1';
+    };
+
+    document.getElementById('sendMessage').onclick = () => {
+        const name = document.getElementById('name').value;
+        const message = document.getElementById('message').value;
+
+        sendMessage({ name, message });
+    };
+}
+
+async function sendMessage(payload) {
+    const { data } = await axios.post('/chat', payload);
+    console.log('sendMessage', payload, data);
+    document.getElementById('message').value = '';
 }
 
 async function init() {
@@ -33,10 +47,12 @@ function createPeer() {
 }
 
 async function handleNegotiationNeededEvent(peer) {
+    const name = document.getElementById('name').value;
     const offer = await peer.createOffer();
     await peer.setLocalDescription(offer);
     const payload = {
-        sdp: peer.localDescription
+        sdp: peer.localDescription,
+        name
     };
 
     const { data } = await axios.post('/consumer', payload);

@@ -4,6 +4,18 @@ window.onload = () => {
         document.getElementById('start').style.display = 'none';
         document.getElementById('video').style.display = 'block';
     }
+
+    document.getElementById('sendMessage').onclick = () => {
+        const message = document.getElementById('message').value;
+
+        sendMessage({ name: 'STREAM', message });
+    };
+}
+
+async function sendMessage(payload) {
+    const { data } = await axios.post('/chat', payload);
+    console.log('sendMessage', payload, data);
+    document.getElementById('message').value = '';
 }
 
 async function init() {
