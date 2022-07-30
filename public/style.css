@@ -70,7 +70,7 @@ h1, h2, h3, h4 {
   /* padding: 15px 10px 115px; */
   display: none;
   min-height: 300px;
-  max-height: 600px;
+  max-height: 500px;
   min-width: 150px;
   max-width: 300px;
   overflow-y: scroll;
@@ -98,6 +98,10 @@ ul {
 @media (max-width: 800px) {
   h1, h2, h3, h4 {
     padding: 10px;
+  }
+
+  #register {
+    margin: 20px;
   }
 
   #chat-wrapper {
