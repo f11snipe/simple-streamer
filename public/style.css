@@ -1,0 +1,7 @@
+#register {
+  margin: 100px;
+}
+
+#register input, #register button {
+  margin: 30px auto;
+}
