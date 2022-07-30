@@ -17,7 +17,12 @@ function createPeer() {
     const peer = new RTCPeerConnection({
         iceServers: [
             {
-                urls: "stun:stun.stunprotocol.org"
+                urls: "stun:stun.l.google.com:19302"
+            },
+            {
+                urls: "turn:18.207.91.238:3478",
+                username: 'sss',
+                credential: 'getstreamed',
             }
         ]
     });
