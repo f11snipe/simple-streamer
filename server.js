@@ -5,9 +5,32 @@ const LocalStorage = require('node-localstorage').LocalStorage;
 const webrtc = require("wrtc");
 const localStorage = new LocalStorage('./scratch');
 
+const getCache = (key, val) => {
+    try {
+        const cached = localStorage.getItem(key);
+
+        if (cached) {
+            return JSON.parse(cached);
+        }
+
+        return val;
+    } catch (err) {
+        return val;
+    }
+};
+
+const putCache = (key, val) => {
+    return localStorage.setItem(key, JSON.stringify(val));
+};
+
 let senderStream;
-const history = [];
-const consumers = [];
+const history = getCache('history', []);
+const consumers = getCache('consumers', []);
+
+setInterval(() => {
+    putCache('history', history);
+    putCache('consumers', consumers);
+}, 2000);
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -38,7 +61,7 @@ app.post("/chat", async ({ body }, res) => {
 
 app.post("/consumer", async ({ body }, res) => {
     const { name } = body;
-    if (name) consumers.push({ name });
+    if (name) consumers.push({ name, time: Date.now() });
     const peer = new webrtc.RTCPeerConnection({
         iceServers: [
             {

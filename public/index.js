@@ -1,11 +1,17 @@
 window.onload = () => {
     document.getElementById('view').onclick = () => {
-        init();
-        // const name = document.getElementById('name').value;
-        // alert(`Welcome to the party, ${name}`);
-        document.getElementById('register').style.display = 'none';
-        document.getElementById('video').style.display = 'block';
-        document.getElementById('details').style.opacity = '1';
+        const name = document.getElementById('name').value;
+
+        if (name && name.trim().length > 2) {
+            init();
+            document.getElementById('register').style.display = 'none';
+            document.getElementById('video').style.display = 'block';
+            document.getElementById('details').style.opacity = '1';
+            document.getElementById('chat-wrapper').style.opacity = '0.65';
+            document.getElementById('guest-wrapper').style.opacity = '0.65';
+        } else {
+            alert('Please enter at least 3 characters');
+        }
     };
 
     document.getElementById('sendMessage').onclick = () => {

@@ -17,6 +17,9 @@ h1, h2, h3, h4 {
 
 #details {
   opacity: 0;
+  color: white;
+  text-align: center;
+  padding: 20px;
 }
 
 .badge {
@@ -25,31 +28,60 @@ h1, h2, h3, h4 {
 
 #consumers {
   color: #333;
-  opacity: 0.4;
-}
-
-#showChat {
-  opacity: 0;
-}
-
-#chat-wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: white;
   padding: 15px;
-  opacity: 0.65;
-  color: #333;
-}
-
-#chat {
-  padding: 15px;
+  display: none;
   min-height: 300px;
   max-height: 600px;
   min-width: 150px;
   max-width: 300px;
   overflow-y: scroll;
 }
+
+#showChat, #showGuests {
+  opacity: 1;
+}
+
+#hideChat, #hideGuests {
+  opacity: 0;
+}
+
+#guest-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  padding: 15px;
+  opacity: 0;
+  color: #333;
+}
+
+#chat-wrapper {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  padding: 15px;
+  opacity: 0;
+  color: #333;
+}
+
+#chat {
+  padding: 15px;
+  /* padding: 15px 10px 115px; */
+  display: none;
+  min-height: 300px;
+  max-height: 600px;
+  min-width: 150px;
+  max-width: 300px;
+  overflow-y: scroll;
+}
+
+/* #chat .form-group {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  left: 5%;
+} */
 
 #chat p.message {
   white-space: pre-wrap;
