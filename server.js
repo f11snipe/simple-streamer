@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -38,8 +39,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/info", async (req, res) => {
     res.json({
+        started: !!senderStream,
         history,
-        consumers
+        consumers,
     });
 });
 
@@ -60,8 +62,14 @@ app.post("/chat", async ({ body }, res) => {
 });
 
 app.post("/consumer", async ({ body }, res) => {
-    const { name } = body;
-    if (name) consumers.push({ name, time: Date.now() });
+    const { guid, name } = body;
+    let guest = consumers.find(c => c.id == guid);
+
+    if (!guest) {
+        guest = { id: uuidv4(), name, time: Date.now() };
+        if (name) consumers.push(guest);
+    }
+
     const peer = new webrtc.RTCPeerConnection({
         iceServers: [
             {
@@ -80,6 +88,7 @@ app.post("/consumer", async ({ body }, res) => {
     const answer = await peer.createAnswer();
     await peer.setLocalDescription(answer);
     const payload = {
+        guest,
         sdp: peer.localDescription
     }
 

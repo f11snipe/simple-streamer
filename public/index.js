@@ -1,14 +1,13 @@
 window.onload = () => {
+    if (localStorage.getItem('guestName')) {
+        document.getElementById('name').value = localStorage.getItem('guestName');
+    }
+
     document.getElementById('view').onclick = () => {
         const name = document.getElementById('name').value;
 
         if (name && name.trim().length > 2) {
             init();
-            document.getElementById('register').style.display = 'none';
-            document.getElementById('video').style.display = 'block';
-            document.getElementById('details').style.opacity = '1';
-            document.getElementById('chat-wrapper').style.opacity = '0.65';
-            document.getElementById('guest-wrapper').style.opacity = '0.65';
         } else {
             alert('Please enter at least 3 characters');
         }
@@ -32,6 +31,11 @@ async function init() {
     const peer = createPeer();
     peer.addTransceiver("audio", { direction: "recvonly" });
     peer.addTransceiver("video", { direction: "recvonly" });
+    document.getElementById('register').style.display = 'none';
+    document.getElementById('video').style.display = 'block';
+    document.getElementById('details').style.opacity = '1';
+    document.getElementById('chat-wrapper').style.opacity = '0.65';
+    document.getElementById('guest-wrapper').style.opacity = '0.65';
 }
 
 function createPeer() {
@@ -59,10 +63,14 @@ async function handleNegotiationNeededEvent(peer) {
     await peer.setLocalDescription(offer);
     const payload = {
         sdp: peer.localDescription,
+        guid: localStorage.getItem('guestID'),
         name
     };
 
     const { data } = await axios.post('/consumer', payload);
+    localStorage.setItem('guest', JSON.stringify(data.guest));
+    localStorage.setItem('guestID', data.guest.id);
+    localStorage.setItem('guestName', data.guest.name);
     const desc = new RTCSessionDescription(data.sdp);
     peer.setRemoteDescription(desc).catch(e => console.log(e));
 }
